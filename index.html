@@ -1,1 +1,63 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe with Hand Gesture Recognition</title>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands"></script>
+</head>
+<body>
+    <!-- Display the Tic Tac Toe board -->
+    <canvas id="ticTacToeBoard" width="300" height="300"></canvas>
+
+    <script>
+        // JavaScript code for handling hand gestures and drawing the Tic Tac Toe board
+        const canvas = document.getElementById('ticTacToeBoard');
+        const ctx = canvas.getContext('2d');
+
+        // Function to draw Tic Tac Toe board
+        function drawBoard() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw grid lines
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            for (let i = 1; i < 3; i++) {
+                ctx.beginPath();
+                ctx.moveTo(i * canvas.width / 3, 0);
+                ctx.lineTo(i * canvas.width / 3, canvas.height);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(0, i * canvas.height / 3);
+                ctx.lineTo(canvas.width, i * canvas.height / 3);
+                ctx.stroke();
+            }
+
+            // Draw X and O
+            // Implement your logic here to draw X and O based on hand gestures
+        }
+
+        // Function to handle hand gestures
+        function handleGestures() {
+            const hands = new Hands({ locateFile: (file) => `/mediapipe/hands/${file}` });
+            hands.onResults(onHandResults);
+            hands.start();
+        }
+
+        // Function to process hand gesture results
+        function onHandResults(results) {
+            // Implement your logic here to interpret hand gestures and make moves on the Tic Tac Toe board
+        }
+
+        // Initialize the Tic Tac Toe board
+        drawBoard();
+
+        // Start hand gesture recognition
+        handleGestures();
+    </script>
+</body>
+</html>
 
