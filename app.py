@@ -1,7 +1,13 @@
+# app.py
+
+from flask import Flask, render_template, Response
 import cv2
 import numpy as np
 import mediapipe as mp
 
+app = Flask(__name__)
+
+# Initialize mediapipe
 mp_hands = mp.solutions.hands
 
 # Function to detect a closed fist gesture
@@ -48,6 +54,12 @@ def check_win(board, player):
        all([board[i][2-i] == player for i in range(3)]):
         return True
     return False
+
+# Function to make the computer's move
+def make_computer_move(board):
+    # Randomly select an empty cell for the computer's move
+    empty_cells = [(i, j) for i in range(3) for j in range(3) if board[i][j] == 0]
+    return random.choice(empty_cells)
 
 # Main function
 def main():
@@ -106,6 +118,10 @@ def main():
         print("Player 2 wins!")
     else:
         print("It's a draw!")
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 if __name__ == "__main__":
     main()
